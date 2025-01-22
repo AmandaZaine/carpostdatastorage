@@ -20,7 +20,7 @@ public class CarPostEntity {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false, referencedColumnName = "id")
-    private CarPostOwnerEntity carPostOwnerEntity;
+    private CarPostOwnerEntity carPostOwner;
 
     public CarPostEntity() {
     }
@@ -34,7 +34,7 @@ public class CarPostEntity {
         this.engineVersion = engineVersion;
         this.city = city;
         this.createdDate = createdDate;
-        this.carPostOwnerEntity = carPostOwnerEntity;
+        this.carPostOwner = carPostOwnerEntity;
     }
 
     public Long getId() {
@@ -101,11 +101,11 @@ public class CarPostEntity {
         this.createdDate = createdDate;
     }
 
-    public CarPostOwnerEntity getCarPostOwnerEntity() {
-        return carPostOwnerEntity;
+    public CarPostOwnerEntity getCarPostOwner() {
+        return carPostOwner;
     }
 
-    public void setCarPostOwnerEntity(CarPostOwnerEntity carPostOwnerEntity) {
-        this.carPostOwnerEntity = carPostOwnerEntity;
+    public void setCarPostOwner(CarPostOwnerEntity carPostOwner) {
+        this.carPostOwner = carPostOwner;
     }
 }

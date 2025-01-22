@@ -1,55 +1,35 @@
 package com.amandazaine.carpostdatastorage.dto;
 
+import com.amandazaine.carpostdatastorage.entity.CarPostEntity;
+import com.amandazaine.carpostdatastorage.entity.CarPostOwnerEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 
+import java.time.LocalDate;
 import java.util.List;
 
+@Builder
 @JsonInclude
 public class CarPostDTO {
 
     private String model;
     private String brand;
-    private String price;
+    private Double price;
     private String description;
     private String engineVersion;
     private String city;
     private String createdDate;
     private Long ownerId;
-    private String ownerName;
-    private String ownerType;
-    private String contact;
-
-    public static List<List<String>> toListOfString(List<CarPostDTO> carPostDTOList) {
-        return carPostDTOList
-                .stream()
-                .map(carPostDTO -> List.of(
-                        carPostDTO.model,
-                        carPostDTO.brand,
-                        carPostDTO.price,
-                        carPostDTO.description,
-                        carPostDTO.engineVersion,
-                        carPostDTO.city,
-                        carPostDTO.createdDate,
-                        carPostDTO.ownerId.toString(),
-                        carPostDTO.ownerName,
-                        carPostDTO.ownerType,
-                        carPostDTO.contact)
-                )
-                .toList();
-    }
 
     public CarPostDTO(
             String model,
             String brand,
-            String price,
+            Double price,
             String description,
             String engineVersion,
             String city,
             String createdDate,
-            Long ownerId,
-            String ownerName,
-            String ownerType,
-            String contact) {
+            Long ownerId) {
         this.model = model;
         this.brand = brand;
         this.price = price;
@@ -58,14 +38,55 @@ public class CarPostDTO {
         this.city = city;
         this.createdDate = createdDate;
         this.ownerId = ownerId;
-        this.ownerName = ownerName;
-        this.ownerType = ownerType;
-        this.contact = contact;
     }
 
     public CarPostDTO() {
     }
 
+    public static List<List<String>> toListOfString(List<CarPostDTO> carPostDTOList) {
+        return carPostDTOList
+                .stream()
+                .map(carPostDTO -> List.of(
+                        carPostDTO.model,
+                        carPostDTO.brand,
+                        carPostDTO.price.toString(),
+                        carPostDTO.description,
+                        carPostDTO.engineVersion,
+                        carPostDTO.city,
+                        carPostDTO.createdDate,
+                        carPostDTO.ownerId.toString())
+                )
+                .toList();
+    }
+
+    public static CarPostDTO carPostEntityToCarPostDTO(CarPostEntity carPostEntity) {
+        CarPostDTO carPostDTO = new CarPostDTO();
+        carPostDTO.setBrand(carPostEntity.getBrand());
+        carPostDTO.setCity(carPostEntity.getCity());
+        carPostDTO.setModel(carPostEntity.getModel());
+        carPostDTO.setDescription(carPostEntity.getDescription());
+        carPostDTO.setEngineVersion(carPostEntity.getEngineVersion());
+        carPostDTO.setCreatedDate(carPostEntity.getCreatedDate());
+        carPostDTO.setPrice(carPostEntity.getPrice());
+        carPostDTO.setOwnerId(carPostEntity.getCarPostOwner().getId());
+
+        return carPostDTO;
+    }
+
+    public static CarPostEntity carPostDtoToCarPostEntity(CarPostDTO carPostDTO) {
+        CarPostEntity carPostEntity = new CarPostEntity();
+        carPostEntity.setModel(carPostDTO.getModel());
+        carPostEntity.setBrand(carPostDTO.getBrand());
+        carPostEntity.setPrice(carPostDTO.getPrice());
+        carPostEntity.setDescription(carPostDTO.getDescription());
+        carPostEntity.setEngineVersion(carPostDTO.getEngineVersion());
+        carPostEntity.setCity(carPostDTO.getCity());
+        carPostEntity.setCreatedDate(String.valueOf(LocalDate.now()));
+
+        return carPostEntity;
+    }
+
+    /* Getters and setters */
     public String getModel() {
         return model;
     }
@@ -80,14 +101,6 @@ public class CarPostDTO {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getDescription() {
@@ -122,35 +135,19 @@ public class CarPostDTO {
         this.createdDate = createdDate;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public Long getOwnerId() {
         return ownerId;
     }
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
-    public String getOwnerType() {
-        return ownerType;
-    }
-
-    public void setOwnerType(String ownerType) {
-        this.ownerType = ownerType;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 }
