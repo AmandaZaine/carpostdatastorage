@@ -3,7 +3,7 @@ package com.amandazaine.carpostdatastorage.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "car_post")
+@Table(name = "carpost")
 public class CarPostEntity {
 
     @Id
@@ -19,13 +19,13 @@ public class CarPostEntity {
     private String createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false, referencedColumnName = "id")
-    private CarPostOwnerEntity carPostOwner;
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+    private UserEntity user;
 
     public CarPostEntity() {
     }
 
-    public CarPostEntity(Long id, String model, String brand, Double price, String description, String engineVersion, String city, String createdDate, String contact, CarPostOwnerEntity carPostOwnerEntity) {
+    public CarPostEntity(Long id, String model, String brand, Double price, String description, String engineVersion, String city, String createdDate, String contact, UserEntity userEntity) {
         this.id = id;
         this.model = model;
         this.brand = brand;
@@ -34,7 +34,7 @@ public class CarPostEntity {
         this.engineVersion = engineVersion;
         this.city = city;
         this.createdDate = createdDate;
-        this.carPostOwner = carPostOwnerEntity;
+        this.user = userEntity;
     }
 
     public Long getId() {
@@ -101,11 +101,11 @@ public class CarPostEntity {
         this.createdDate = createdDate;
     }
 
-    public CarPostOwnerEntity getCarPostOwner() {
-        return carPostOwner;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setCarPostOwner(CarPostOwnerEntity carPostOwner) {
-        this.carPostOwner = carPostOwner;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

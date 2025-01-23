@@ -1,34 +1,23 @@
-package com.amandazaine.carpostdatastorage.entity;
+package com.amandazaine.carpostdatastorage.dto;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 
-@Entity
-@Table(name = "carpost_owner")
-public class CarPostOwnerEntity {
+@Builder
+@JsonInclude
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String name;
     private String type;
     private String phone;
 
-    public CarPostOwnerEntity() {
+    public UserDTO() {
     }
 
-    public CarPostOwnerEntity(Long id, String name, String type, String phone) {
-        this.id = id;
+    public UserDTO(String name, String type, String contactNumber) {
         this.name = name;
         this.type = type;
-        this.phone = phone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.phone = contactNumber;
     }
 
     public String getName() {

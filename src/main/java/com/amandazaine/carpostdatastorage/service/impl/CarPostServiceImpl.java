@@ -2,7 +2,7 @@ package com.amandazaine.carpostdatastorage.service.impl;
 
 import com.amandazaine.carpostdatastorage.dto.CarPostDTO;
 import com.amandazaine.carpostdatastorage.entity.CarPostEntity;
-import com.amandazaine.carpostdatastorage.repository.CarPostOwnerRepository;
+import com.amandazaine.carpostdatastorage.repository.UserRepository;
 import com.amandazaine.carpostdatastorage.repository.CarPostRepository;
 import com.amandazaine.carpostdatastorage.service.CarPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +21,16 @@ public class CarPostServiceImpl implements CarPostService {
     CarPostRepository carPostRepository;
 
     @Autowired
-    CarPostOwnerRepository carPostOwnerRepository;
+    UserRepository userRepository;
 
     @Override
     public void createCarPost(CarPostDTO carPostDTO) {
         CarPostEntity carPostEntity = carPostDtoToCarPostEntity(carPostDTO);
 
-        carPostOwnerRepository
+        userRepository
                 .findById(carPostDTO.getOwnerId())
                 .ifPresentOrElse(
-                        owner -> {carPostEntity.setCarPostOwner(owner);},
+                        owner -> {carPostEntity.setUser(owner);},
                         () -> {throw new RuntimeException();}
                 );
 

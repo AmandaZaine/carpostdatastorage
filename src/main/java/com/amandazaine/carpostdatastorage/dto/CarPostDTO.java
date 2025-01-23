@@ -1,7 +1,6 @@
 package com.amandazaine.carpostdatastorage.dto;
 
 import com.amandazaine.carpostdatastorage.entity.CarPostEntity;
-import com.amandazaine.carpostdatastorage.entity.CarPostOwnerEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 
@@ -68,7 +67,7 @@ public class CarPostDTO {
         carPostDTO.setEngineVersion(carPostEntity.getEngineVersion());
         carPostDTO.setCreatedDate(carPostEntity.getCreatedDate());
         carPostDTO.setPrice(carPostEntity.getPrice());
-        carPostDTO.setOwnerId(carPostEntity.getCarPostOwner().getId());
+        carPostDTO.setOwnerId(carPostEntity.getUser().getId());
 
         return carPostDTO;
     }
