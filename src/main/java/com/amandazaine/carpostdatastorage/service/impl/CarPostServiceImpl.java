@@ -2,7 +2,6 @@ package com.amandazaine.carpostdatastorage.service.impl;
 
 import com.amandazaine.carpostdatastorage.dto.CarPostDTO;
 import com.amandazaine.carpostdatastorage.entity.CarPostEntity;
-import com.amandazaine.carpostdatastorage.entity.CarPostOwnerEntity;
 import com.amandazaine.carpostdatastorage.repository.CarPostOwnerRepository;
 import com.amandazaine.carpostdatastorage.repository.CarPostRepository;
 import com.amandazaine.carpostdatastorage.service.CarPostService;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.amandazaine.carpostdatastorage.dto.CarPostDTO.carPostDtoToCarPostEntity;
 
@@ -49,22 +49,50 @@ public class CarPostServiceImpl implements CarPostService {
     }
 
     @Override
-    public void updateCarPost(CarPostDTO carPostDTO, Long carPostId) {
+    public CarPostDTO updateCarPost(CarPostDTO carPostDTO, Long carPostId) {
+        AtomicReference<CarPostEntity> carPostAtualizado = new AtomicReference<>();
+
         carPostRepository
                 .findById(carPostId)
-                .ifPresentOrElse(carPost -> {
-                        carPost.setModel(carPostDTO.getModel());
-                        carPost.setBrand(carPostDTO.getBrand());
-                        carPost.setPrice(carPostDTO.getPrice());
-                        carPost.setDescription(carPostDTO.getDescription());
-                        carPost.setEngineVersion(carPostDTO.getEngineVersion());
-                        carPost.setCity(carPostDTO.getCity());
-                        carPost.setCreatedDate(carPostDTO.getCreatedDate());
+                .ifPresentOrElse(carPostEntity -> {
+                            if(!carPostDTO.getModel().isEmpty() && !carPostDTO.getModel().isBlank()) {
+                                carPostEntity.setModel(carPostDTO.getModel());
+                            }
 
-                        carPostRepository.save(carPost);
-                    },
-                    () -> {throw new NoSuchElementException();}
+                            if(!carPostDTO.getBrand().isEmpty() && !carPostDTO.getBrand().isBlank()) {
+                                carPostEntity.setBrand(carPostDTO.getBrand());
+                            }
+
+                            if(!carPostDTO.getPrice().equals(0d) && carPostDTO.getPrice() != null) {
+                                carPostEntity.setPrice(carPostDTO.getPrice());
+                            }
+
+                            if(!carPostDTO.getDescription().isEmpty() && !carPostDTO.getDescription().isBlank()) {
+                                carPostEntity.setDescription(carPostDTO.getDescription());
+                            }
+
+                            if(!carPostDTO.getEngineVersion().isEmpty() && !carPostDTO.getEngineVersion().isBlank()) {
+                                carPostEntity.setEngineVersion(carPostDTO.getEngineVersion());
+                            }
+
+                            if(!carPostDTO.getCity().isEmpty() && !carPostDTO.getCity().isBlank()) {
+                                carPostEntity.setCity(carPostDTO.getCity());
+                            }
+
+                            if(!carPostDTO.getCreatedDate().isEmpty() && !carPostDTO.getCreatedDate().isBlank()) {
+                                carPostEntity.setCreatedDate(carPostDTO.getCreatedDate());
+                            }
+
+                            //TODO Permitir alterar o owner do post
+
+                            carPostAtualizado.set(carPostRepository.save(carPostEntity));
+                        },
+                        () -> {
+                            throw new NoSuchElementException();
+                        }
                 );
+
+        return CarPostDTO.carPostEntityToCarPostDTO(carPostAtualizado.get());
     }
 
     @Override

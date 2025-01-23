@@ -7,6 +7,6 @@ import java.util.List;
 public interface CarPostService {
     void createCarPost(CarPostDTO carPostDTO);
     List<CarPostDTO> findAllCarPost();
-    void updateCarPost(CarPostDTO carPostDTO, Long carPostId);
+    CarPostDTO updateCarPost(CarPostDTO carPostDTO, Long carPostId);
     void deleteCarPost(Long carPostId);
 }

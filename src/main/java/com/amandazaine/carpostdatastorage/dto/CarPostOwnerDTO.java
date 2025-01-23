@@ -9,7 +9,7 @@ public class CarPostOwnerDTO {
 
     private String name;
     private String type;
-    private String contactNumber;
+    private String phone;
 
     public CarPostOwnerDTO() {
     }
@@ -17,7 +17,7 @@ public class CarPostOwnerDTO {
     public CarPostOwnerDTO(String name, String type, String contactNumber) {
         this.name = name;
         this.type = type;
-        this.contactNumber = contactNumber;
+        this.phone = contactNumber;
     }
 
     public String getName() {
@@ -36,11 +36,11 @@ public class CarPostOwnerDTO {
         this.type = type;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
