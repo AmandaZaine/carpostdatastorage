@@ -30,7 +30,7 @@ public class KafkaConsumerConfigs {
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"car-post-group");
         properties.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,JsonDeserializer.class);
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(
                                         properties,
