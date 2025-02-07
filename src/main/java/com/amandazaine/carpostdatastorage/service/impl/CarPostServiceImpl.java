@@ -54,7 +54,8 @@ public class CarPostServiceImpl implements CarPostService {
 
         carPostRepository
                 .findById(carPostId)
-                .ifPresentOrElse(carPostEntity -> {
+                .ifPresentOrElse(
+                        carPostEntity -> {
                             if(!carPostDTO.getModel().isEmpty() && !carPostDTO.getModel().isBlank()) {
                                 carPostEntity.setModel(carPostDTO.getModel());
                             }

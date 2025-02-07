@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 
 @Builder
-@JsonInclude
+@JsonInclude //especifica quais valores devem ser incluídos na serialização de um objeto JSON, se nenhuma opção é definida, por padrão, todos os valores são incluídos.
 public class UserDTO {
 
     private String name;

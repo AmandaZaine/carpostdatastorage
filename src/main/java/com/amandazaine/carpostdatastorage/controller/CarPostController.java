@@ -4,7 +4,6 @@ import com.amandazaine.carpostdatastorage.dto.CarPostDTO;
 import com.amandazaine.carpostdatastorage.service.CarPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class CarPostController {
     CarPostService carPostService;
 
     @GetMapping
-    public ResponseEntity<List<CarPostDTO>> findAllCarPost() {
+    public ResponseEntity<List<CarPostDTO>> getAllCarPost() {
         return ResponseEntity.status(HttpStatus.FOUND).body(carPostService.findAllCarPost());
     }
 

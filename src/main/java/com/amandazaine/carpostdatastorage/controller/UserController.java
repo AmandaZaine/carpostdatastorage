@@ -15,14 +15,14 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity deleteUser(@PathVariable("userId") Long userId) {
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
